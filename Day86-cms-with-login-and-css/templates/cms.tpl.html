@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Management System</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+    
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+    
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+    
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    
+        .header h1 {
+            color: #333;
+            font-size: 24px;
+        }
+    
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+    
+        .main-content {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+    
+        .section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    
+        .form-section {
+            flex: 1;
+            min-width: 300px;
+        }
+    
+        .content-section {
+            flex: 2;
+            min-width: 300px;
+        }
+    
+        .form-group {
+            margin-bottom: 15px;
+        }
+    
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #333;
+        }
+    
+        input[type="date"],
+        input[type="text"],
+        input[type="password"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+    
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+    
+        button {
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            border: none;
+        }
+    
+        .primary-button {
+            background: #0066cc;
+            color: white;
+        }
+    
+        .primary-button:hover {
+            background: #0052a3;
+        }
+    
+        .secondary-button {
+            background: #f0f0f0;
+            color: #333;
+        }
+    
+        .secondary-button:hover {
+            background: #e0e0e0;
+        }
+    
+        .login-button {
+            background: #28a745;
+            color: white;
+        }
+    
+        .login-button:hover {
+            background: #218838;
+        }
+    
+        .form-buttons {
+            display: flex;
+            gap: 10px;
+        }
+    
+        .content-row {
+            border-bottom: 1px solid #eee;
+            padding: 15px 0;
+        }
+    
+        .content-row:last-child {
+            border-bottom: none;
+        }
+    
+        .content-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+    
+        .content-body {
+            color: #666;
+            margin-bottom: 5px;
+            white-space: pre-wrap;
+        }
+    
+        .content-date {
+            color: #999;
+            font-size: 14px;
+        }
+    
+        .flash-message {
+            padding: 10px 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+    
+        .flash-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+    
+        .flash-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+    
+            .section {
+                width: 100%;
+            }
+    
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+    <body>
+        <div class="container">
+            <header class="header">
+                <h1>Content Management System</h1>
+                {% if session.get('logged_in') %}
+                    <form action="{{ url_for('logout') }}" method="POST">
+                        <button type="submit" class="secondary-button">Logout</button>
+                    </form>
+                {% endif %}
+            </header>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="flash-message flash-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <div class="main-content">
+                <section class="section form-section">
+                    {% if session.get('logged_in') %}
+                        <!-- Entry Form -->
+                        <form method="POST" action="{{ url_for('create_entry') }}">
+                            <div class="form-group">
+                                <label for="date">Date</label>
+                                <input type="date" id="date" name="date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="title">Title</label>
+                                <input type="text" id="title" name="title" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="body">Body</label>
+                                <textarea id="body" name="body" required></textarea>
+                            </div>
+                            <div class="form-buttons">
+                                <button type="submit" class="primary-button">Save</button>
+                                <button type="reset" class="secondary-button">Reset</button>
+                            </div>
+                        </form>
+                    {% else %}
+                        <!-- Login Form -->
+                        <form method="POST" action="{{ url_for('login') }}">
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" id="username" name="username" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" id="password" name="password" required>
+                            </div>
+                            <div class="form-buttons">
+                                <button type="submit" class="primary-button">Login</button>
+                            </div>
+                        </form>
+                    {% endif %}
+                </section>
+
+                <section class="section content-section">
+                    {% if entries %}
+                        {% for entry in entries %}
+                            <div class="content-row">
+                                <div class="content-title">{{ entry.title }}</div>
+                                <div class="content-body">{{ entry.body }}</div>
+                                <div class="content-date">{{ entry.date.strftime('%Y-%m-%d') }}</div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>No entries yet.</p>
+                    {% endif %}
+                </section>
+            </div>
+        </div>
+    </body>
+</html>
