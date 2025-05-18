@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-body text-center">
+                <h2 class="card-title mb-4">Welcome to Spotify Top Albums</h2>
+                <p class="lead mb-4">Discover the top albums of {{ year }}</p>
+                <img src="https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_RGB_Green.png" 
+                     alt="Spotify Logo" class="img-fluid mb-4" style="max-width: 200px;">
+                <div>
+                    <a href="{{ url_for('login') }}" class="btn btn-success btn-lg">
+                        <i class="bi bi-spotify"></i> Connect with Spotify
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="mb-4">Top Albums of {{ year }}</h1>
+
+{% if albums %}
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        {% for album in albums %}
+            <div class="col">
+                <div class="card h-100 shadow album-card">
+                    {% if album.image_url %}
+                        <img src="{{ album.image_url }}" class="card-img-top" alt="{{ album.name }}">
+                    {% else %}
+                        <div class="no-image-placeholder">No Image Available</div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ album.name }}</h5>
+                        <p class="card-text">{{ album.artist }}</p>
+                        <p class="card-text"><small class="text-muted">Release date: {{ album.release_date }}</small></p>
+                        <a href="{{ album.spotify_url }}" target="_blank" class="btn btn-success btn-sm">Listen on Spotify</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="alert alert-info">
+        <p>No albums found from {{ year }}. Try again later or connect a different Spotify account.</p>
+    </div>
+{% endif %}
+{% endblock %}

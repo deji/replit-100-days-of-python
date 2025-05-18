@@ -1,0 +1,79 @@
+/* Main styling */
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #343a40;
+}
+
+/* Album card styling */
+.album-card {
+    transition: transform 0.3s ease;
+    height: 100%;
+}
+
+.album-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.album-card img {
+    height: 225px;
+    object-fit: cover;
+}
+
+.no-image-placeholder {
+    height: 225px;
+    background-color: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+}
+
+/* Navbar and footer styling */
+.navbar {
+    background-color: #191414 !important;  /* Spotify black */
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+.btn-success {
+    background-color: #1DB954 !important;  /* Spotify green */
+    border-color: #1DB954 !important;
+}
+
+footer {
+    background-color: #191414 !important;  /* Spotify black */
+}
+
+/* Login page */
+.card {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Grid layout responsiveness */
+@media (max-width: 576px) {
+    .row-cols-1 > .col {
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* Album details */
+.card-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: bold;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-body a {
+    margin-top: auto;
+}
