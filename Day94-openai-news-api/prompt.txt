@@ -1,0 +1,2 @@
+Parse this product page and return the important details only and nothing else. If there's a get notified message then report it as out of stock. Otherwise, the stock level is set to available. 
+HTML:

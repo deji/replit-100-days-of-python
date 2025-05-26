@@ -1,9 +1,13 @@
 {
+  "env": {
+    "UV_PYTHON": "$PWD/.venv/bin/python"
+  },
   "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.13.3/.schema/devbox.schema.json",
   "packages": [
     "nodejs@20.17.0",
     "gh@latest",
-    "python-full@3.12"
+    "python-full@3.12",
+    "uv@latest"
   ],
   "shell": {
     "init_hook": [

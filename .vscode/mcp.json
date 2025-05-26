@@ -1,0 +1,16 @@
+{
+    "servers": {
+        "context7-mcp-server": {
+            "type": "stdio",
+            "command": "devbox",
+            "args": [
+                "run", "-c", "/home/deji/Code/learn-100-days-python/devbox.json",
+                "npx", "-y", "@upstash/context7-mcp@latest",
+            ]
+            // "command": "/home/deji/Code/learn-100-days-python/.devbox/nix/profile/default/bin/npx",
+            // "args": [
+            //     "-y", "@upstash/context7-mcp@latest"
+            // ]
+        }
+    }
+}
